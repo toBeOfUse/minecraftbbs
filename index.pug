@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Sarah Server BBS
+        link(rel="stylesheet", href="/index.css")
+    body
+        h1 Sarah-erver Status:
+        p #{players || "0"} #{(players == 1 ? "player" : "players")} / #{max} max online
+        if sample && sample.length
+            p Including but not limited to: #{sample.map(s=>s.name).join(", ")}
+        h1 BBS
+        form.form(onsubmit="sendMessage(event.preventDefault())")
+            input#message-text(type="text", placeholder="post")
+            button(type="submit") Make Post
+        #bbs-container
+        script(src="//unpkg.com/@feathersjs/client@^4.3.0/dist/feathers.js")
+        script(src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js")
+        script(src="/index.js")
