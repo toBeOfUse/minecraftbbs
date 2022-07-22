@@ -12,6 +12,7 @@ import path from "path";
 interface Message {
   id?: number;
   text: string;
+  sender: string;
 }
 
 // A messages service that allows to create new
@@ -24,12 +25,12 @@ class MessageService {
     return this.messages;
   }
 
-  async create(data: Pick<Message, "text">) {
+  async create(data: Pick<Message, "text" | "sender">) {
     // The new message is the data text with a unique identifier added
     // using the messages length since it changes whenever we add one
     const message: Message = {
       id: this.messages.length,
-      text: data.text,
+      ...data,
     };
 
     // Add new message to the list
@@ -62,7 +63,7 @@ const index = (opts: pug.Options & pug.LocalsObject) =>
   pug.renderFile("index.pug", opts);
 
 app.use(/(index)?/i, async (_req: Request, res: Response) => {
-  const liveInfo = await status(mcserver.host, mcserver.port);
+  // const liveInfo = await status(mcserver.host, mcserver.port);
   //res.send(index({ ...liveInfo.players }));
   res.send(
     index({
@@ -89,4 +90,5 @@ app
 // So our API doesn't look so empty
 app.service("messages").create({
   text: "Hello world from the server",
+  sender: "admin",
 });
