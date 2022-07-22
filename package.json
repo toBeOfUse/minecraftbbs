@@ -4,7 +4,11 @@
   "description": "simple status display and bulletin board for minecraft servers",
   "main": "app.ts",
   "scripts": {
-    "serve": "ts-node app.ts"
+    "run-server": "ts-node app.ts",
+    "watch-css": "tailwindcss -i ./static/index.css -o ./static/output.css --watch",
+    "build-css": "tailwindcss -i ./static/index.css -o ./static/output.css --minify",
+    "dev": "run-p watch-css run-server",
+    "prod": "run-s build-css run-server"
   },
   "author": "toBeOfUse",
   "license": "MIT",
