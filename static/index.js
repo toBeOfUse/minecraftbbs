@@ -22,7 +22,7 @@ async function sendMessage() {
 function addMessage(message) {
   document.getElementById(
     "bbs-container"
-  ).innerHTML += `<p>${message.text}</p>`;
+  ).innerHTML += `<li>${message.text}</li>`;
 }
 
 const main = async () => {

@@ -1,21 +1,24 @@
 doctype html
-html(lang="en")
+html.h-full.m-0(lang="en")
     head
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Sarah Server BBS
-        link(rel="stylesheet", href="/index.css")
-    body
-        h1 Sarah-erver Status:
-        p #{players || "0"} #{(players == 1 ? "player" : "players")} / #{max} max online
-        if sample && sample.length
-            p Including but not limited to: #{sample.map(s=>s.name).join(", ")}
-        h1 BBS
-        form.form(onsubmit="sendMessage(event.preventDefault())")
-            input#message-text(type="text", placeholder="post")
-            button(type="submit") Make Post
-        #bbs-container
-        script(src="//unpkg.com/@feathersjs/client@^4.3.0/dist/feathers.js")
-        script(src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js")
-        script(src="/index.js")
+        link(rel="stylesheet", href="/output.css")
+    body.h-full.m-0.py-8.bg-fixed.bg-center.bg-cover(style=`background-image: url(/bg/${Math.floor(Math.random()*6)}.jpg)`)
+        div.max-w-screen-sm.mx-auto.rounded-lg.p-4(style="background-color: #ffffffbb")
+            h1.text-2xl.my-2 Server Status:
+            p #{players || "0"} #{(players == 1 ? "player" : "players")} / #{max} max online
+            if sample && sample.length
+                p.italic Including but not limited to: #{sample.map(s=>s.name).join(", ")}
+            h1.text-2xl.my-2 Server BBS
+            form.form(onsubmit="sendMessage(event.preventDefault())")
+                textarea#message-text.border.block.my-4.p-2(placeholder="Write a post", required="true", style="width: 80%")
+                input#sender-name.border.block.my-4.p-2(type="text", placeholder="Sign your name", required="true")
+                button.bg-blue-400.rounded-full.px-4.py-1(type="submit") Make the Post
+            h1.text-2xl.my-2 The posts so far:
+            ul#bbs-container.ml-4.list-disc
+            script(src="//unpkg.com/@feathersjs/client@^4.3.0/dist/feathers.js")
+            script(src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js")
+            script(src="/index.js")

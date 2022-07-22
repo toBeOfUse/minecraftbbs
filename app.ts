@@ -57,18 +57,20 @@ app.use("/messages", new MessageService());
 // Express middleware with a nicer error handler
 app.use(express.errorHandler());
 
-const index = pug.compileFile("index.pug");
+//const index = pug.compileFile("index.pug");
+const index = (opts: pug.Options & pug.LocalsObject) =>
+  pug.renderFile("index.pug", opts);
 
 app.use(/(index)?/i, async (_req: Request, res: Response) => {
   const liveInfo = await status(mcserver.host, mcserver.port);
-  res.send(index({ ...liveInfo.players }));
-  //   res.send(
-  //     index({
-  //       players: 2,
-  //       max: 36,
-  //       sample: [{ name: "Jim" }, { name: "garfield" }],
-  //     })
-  //   );
+  //res.send(index({ ...liveInfo.players }));
+  res.send(
+    index({
+      players: 2,
+      max: 36,
+      sample: [{ name: "Jim" }, { name: "garfield" }],
+    })
+  );
 });
 
 // Add any new real-time connection to the `everybody` channel
